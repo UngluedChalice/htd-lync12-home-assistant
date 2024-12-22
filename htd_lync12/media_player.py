@@ -3,35 +3,23 @@ import logging
 _LOGGER = logging.getLogger(__name__)
 
 """Support for HTD Lync12 Series"""
-from homeassistant.components.media_player import PLATFORM_SCHEMA, MediaPlayerEntity
-from homeassistant.components.media_player.const import (
-    SUPPORT_SELECT_SOURCE,
-    SUPPORT_TURN_OFF,
-    SUPPORT_TURN_ON,
-    SUPPORT_VOLUME_MUTE,
-    SUPPORT_VOLUME_SET,
-    #SUPPORT_VOLUME_STEP,
-)
-from homeassistant.const import (
-    CONF_HOST,
-    CONF_NAME,
-    STATE_OFF,
-    STATE_ON,
-    STATE_UNKNOWN,
-)
+from homeassistant.components.media_player import MediaPlayerEntity
+from homeassistant.components.media_player.const import MediaPlayerEntityFeature
+from homeassistant.const import STATE_OFF, STATE_ON, STATE_UNKNOWN
+from homeassistant.core import HomeAssistant
+
 
 from . import DOMAIN, CONF_ZONES
 from .htd_lync12 import HtdLync12Client, MAX_HTD_VOLUME
 
 SUPPORT_HTD_Lync12 = (
-    SUPPORT_SELECT_SOURCE
-    | SUPPORT_TURN_OFF
-    | SUPPORT_TURN_ON
-    | SUPPORT_VOLUME_MUTE
-    | SUPPORT_VOLUME_SET
-    #| SUPPORT_VOLUME_STEP
+    MediaPlayerEntityFeature.SELECT_SOURCE
+    | MediaPlayerEntityFeature.TURN_OFF
+    | MediaPlayerEntityFeature.TURN_ON
+    | MediaPlayerEntityFeature.VOLUME_MUTE
+    | MediaPlayerEntityFeature.VOLUME_SET
+    | MediaPlayerEntityFeature.VOLUME_STEP
 )
-
 
 def setup_platform(hass, config, add_entities, discovery_info=None):
     htd_configs = hass.data[DOMAIN]
